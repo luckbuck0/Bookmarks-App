@@ -8,10 +8,45 @@ const router= require('express').Router();
 const pool= require('../modules/pool.js/pool')
 
 // creating a post route to get information from client side
-router.post ('/',(req,res)=>{
-    console.log('working');
+router.post('/',(req,res) =>{
+ let name= req.body.name;
+ let description=req.body.description;
+ let link= req.body.link;
+ let notes= req.body.notes;
+ let image_url= req.body.image_URL;
+
+ let sqlText = `
+ INSERT INTO "bookmarks"
+ ("name","description","link","notes","images")
+ VALUES
+ ($1,$2,$3,$4,$5)
+ `;
+
+ let sqlValues= [name,description,link,notes,image_url]
+ 
+ pool.query(sqlText,sqlValues)
+ .then((dbres) =>{
+    res.sendStatus(201);
+ }).catch((dbErr)=>{
+    console.log('thier was a error here', dbErr);
+    res.sendStatus(500);
+ })
 })
 
+// get route for the client side from database
+router.get('/', (req,res)=>{
+    let sqlText= 'SELECT * FROM "bookmarks";';
+
+    pool.query(sqlText)
+    .then((dbRes)=>{
+        console.log(dbRes.rows);
+        let bookmark=dbRes.rows;
+        res.send(dbRes.rows)
+    }).catch((dbErr)=>{
+        console.log('things are not working with get rout',dbErr)
+        res.sendStatus(500);
+    })
+})
 // exporting the router
 module.exports =router;
 
