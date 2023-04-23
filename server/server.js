@@ -11,17 +11,20 @@ const bodyParser= require('body-parser')
 const port=5000;
 
 // bringing in the js file bookmarks from routes
-const routes=('/Users/LuckieBah/Documents/Coding/practice/Bookmarks-App/server/routes/bookmarks.js')
+const bookmarks=require('./routes/bookmarks')
+
+// identify the server/public file
+app.use(express.static('./server/public'));
 
 // initializing body parser
 app.use(bodyParser.urlencoded({extended:true}));
 
 // telling server to use routes variable for all
 // request concerning /bookmarks
-app.use('/bookmarks',routes)
+app.use('/bookmarks',bookmarks)
 
 
 // telling server to listen for request to turn on port 5000
 app.listen(port, ()=>{
     console.log('Congrats youre connected on port',port);
-})
+});
