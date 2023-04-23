@@ -8,10 +8,10 @@ const app= express()
 const bodyParser= require('body-parser')
 
 // creating variable for port= to 5000
-const port=5000
+const port=5000;
 
 // bringing in the js file bookmarks from routes
-const routes=('.routes/bookmarks')
+const routes=('/Users/LuckieBah/Documents/Coding/practice/Bookmarks-App/server/routes/bookmarks.js')
 
 // initializing body parser
 app.use(bodyParser.urlencoded({extended:true}));
