@@ -51,7 +51,7 @@ input{
     
 }
 
-button{
+#submit{
     height: 20px;
     border-color: rgb(12, 12, 107);
     width: 258px;
@@ -106,17 +106,47 @@ h2{
 #bookmarks{
     display: flex;
     flex-direction: row;
-    margin-top: 20px;
+    margin-top: 30px;
     line-height: 20px;
+    margin-left: 20px;
+    justify-content: center;
 }
 #img{
     height: 100px;
     width: 100px;
     margin-top: 5px;
     border: solid;
+     margin-right: 30px;
+     
 } 
 
 #text{
     font-size: 15px;
-    width:150px
+    width:150px;
+    display:inline;
+}
+
+.contain{
+    display: flex;
+    flex-direction: row;
+}
+
+.tools{
+    display: flex;
+    flex-direction: row;
+    margin-left: -138px;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+
+#editButton{
+    width: 80px;
+}
+
+.deleteButton{
+    width: 80px;
+}
+
+#linkButton{
+    width: 80px;
 }

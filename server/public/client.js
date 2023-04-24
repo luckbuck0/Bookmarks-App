@@ -6,7 +6,7 @@ function onReady(){
     console.log('hello');
     showBookmarks()
     $('#submit').on('click', submitBookmark)
-
+    $('#bookmarks').on('click' , '.deleteButton',deleteBookmark)
 }
 
 function showBookmarks(){
@@ -56,16 +56,47 @@ function submitBookmark(){
 function showall(response){
     $('#bookmarks').empty()
     console.log('hello',response);
-    for (let bookmark of response){
+    for (let bookmark of response)
+    appendBookmarks(bookmark)
+}
+
+function deleteBookmark(){
+    console.log('in delete bookmark');
+    console.log($(this).parent().parent().parent().data('id'));
+//     // identifying the id to delete
+    let idToDelete=$(this).parent().parent().parent().data('id')
+
+    $.ajax({
+        method: 'DELETE',
+        url: `/bookmarks/${idToDelete}`
+    }).then(function(response){
+        showBookmarks()
+    }).catch(function(error){
+        alert('the delete button broke--->',error)
+    }
+)
+}
+
+function appendBookmarks(bookmark){
+    {
+        
         $('#bookmarks').append(`
-       <h3 id="text">Name: ${bookmark.name} <br>
-           Description: <br> ${bookmark.description}<br>
-           Link: <br> <a href="">${bookmark.link}</a>
-       <h3>
-       <img id="img" src="${bookmark.images}"">
+        <div class="contain" data-id=${bookmark.id}>
+        <img id="img" src="${bookmark.images}""> 
+        <h3 id="text">
+             Name: ${bookmark.name} <br>
+            Description: <br> ${bookmark.description}<br>
+            <div class="tools">
+            <form action=${bookmark.link}">
+            <button id="linkButton">link</button> 
+            </form>
+            <button id="editButton">Edit</button> 
+           <button class="deleteButton" >Delete</button>
+            <div>
+        <h3>
+        <div>
+       
+       
         `)
     }
 }
- // <p ><h3>name:${bookmark.name}<h3><br> Description: <br> ${bookmark.description} <br> link:<a href="">${bookmark.link}</a> </p>
-        // <img id="img" src="${bookmark.images}"">
-        // <div id="notes">${bookmark.notes} </div>

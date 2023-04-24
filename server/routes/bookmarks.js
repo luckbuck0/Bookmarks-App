@@ -39,7 +39,7 @@ router.get('/', (req,res)=>{
 
     pool.query(sqlText)
     .then((dbRes)=>{
-        console.log(dbRes.rows);
+        
         let bookmark=dbRes.rows;
         res.send(dbRes.rows)
     }).catch((dbErr)=>{
@@ -47,6 +47,26 @@ router.get('/', (req,res)=>{
         res.sendStatus(500);
     })
 })
+
+router.delete('/:id',(req,res)=>{
+    let idToDelete=req.params.id;
+
+    let sqlText= `
+    DELETE FROM "bookmarks"
+    WHERE "id"=$1;
+    `
+    let sqlValues= [idToDelete]
+
+    pool.query(sqlText,sqlValues)
+    .then((dbRes)=>{
+        res.sendStatus(200);
+    }).catch((dbErr)=>{
+        console.log('something went wrong check it out--->', dbErr);
+        res.sendStatus(500);
+    })
+})
+
+    
 // exporting the router
 module.exports =router;
 
